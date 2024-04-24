@@ -9,7 +9,8 @@
     pre {
       white-space: pre-wrap;
       font-family: monospace;
-      font-size: 8px;
+      /* font-size: 12px; */  make changes in pixel size
+      font-size: 1px;
     }
 
     body {
@@ -28,8 +29,10 @@
     image.onload = function () {
       const canvas = document.createElement("canvas");
       const context = canvas.getContext("2d");
-      canvas.width = 200;
-      canvas.height = 150;
+      // canvas.width = 250;
+      // canvas.height = 150;  set width and height of view box
+      canvas.width = 1000;
+      canvas.height = 500;
       context.drawImage(image, 0, 0, canvas.width, canvas.height);
       const imageData = context.getImageData(
         0,
@@ -50,7 +53,7 @@
       }
       document.getElementById("ascii-art").innerHTML = asciiArt;
     };
-    image.src = "dullat.jpg"; // Replace 'saul.png' with the path to your image
+    image.src = "test.png"; // Replace 'test.png' with the path to your image
   </script>
 </body>
 
