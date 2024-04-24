@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image to ASCII Art</title>
+  <style>
+    pre {
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 8px;
+    }
+
+    body {
+      background: black;
+      color: aqua;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Image to ASCII Art</h1>
+  <pre id="ascii-art"></pre>
+  <script>
+    const density = "    .:-i|=+%O#@";
+    const image = new Image();
+    image.onload = function () {
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      canvas.width = 200;
+      canvas.height = 150;
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      const imageData = context.getImageData(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      const data = imageData.data;
+      let asciiArt = "";
+      for (let i = 0; i < data.length; i += 4) {
+        const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+        const len = density.length;
+        const charIndex = Math.floor((avg / 255) * len);
+        const c = density.charAt(charIndex);
+        if (c == " ") asciiArt += "&nbsp;";
+        else asciiArt += c;
+        if ((i / 4 + 1) % canvas.width === 0) asciiArt += "\n";
+      }
+      document.getElementById("ascii-art").innerHTML = asciiArt;
+    };
+    image.src = "dullat.jpg"; // Replace 'saul.png' with the path to your image
+  </script>
+</body>
+
+</html>
